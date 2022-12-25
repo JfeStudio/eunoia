@@ -8,8 +8,9 @@
                             <h2 class="card-title fs-5">All Jobs</h2>
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex gap-2 align-items-center">
-                                    <button type="button" class="btn btn-primary px-3 me-3">+ Create
-                                        Jobs</button>
+                                    <a href="{{ route('jobs.create') }}" class="btn btn-primary text-light px-3 me-3">+
+                                        Create
+                                        Jobs</a>
                                     <button type="submit" class='btn btn-light p-2'>
                                         <i class='bx bx-refresh'></i>
                                     </button>
@@ -33,8 +34,8 @@
                                 </div>
                                 <div class='d-flex align-items-center gap-2'>
                                     <form class="d-flex" role="search">
-                                        <input class="form-control me-2 py-2" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                        <input class="form-control me-2 border-custom rounded-2" type="search"
+                                            placeholder="Search" aria-label="Search">
                                         <button class="btn btn-outline-success py-2" type="submit">Search</button>
                                     </form>
                                     <button class="btn btn-light dropdown-toggle px-3" type="button"
@@ -114,12 +115,12 @@
                                                         <i class='bx bx-dots-vertical-rounded'></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Action</button>
+                                                        <li><button class="dropdown-item" type="button">Detail</button>
                                                         </li>
-                                                        <li><button class="dropdown-item" type="button">Another
-                                                                action</button></li>
-                                                        <li><button class="dropdown-item" type="button">Something else
-                                                                here</button></li>
+                                                        <li><button class="dropdown-item" type="button">Edit</button>
+                                                        </li>
+                                                        <li><button class="dropdown-item" type="button">Delete</button>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -156,12 +157,12 @@
                                                         <i class='bx bx-dots-vertical-rounded'></i>
                                                     </button>
                                                     <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Action</button>
+                                                        <li><button class="dropdown-item" type="button">Detail</button>
                                                         </li>
-                                                        <li><button class="dropdown-item" type="button">Another
-                                                                action</button></li>
-                                                        <li><button class="dropdown-item" type="button">Something else
-                                                                here</button></li>
+                                                        <li><button class="dropdown-item" type="button">Edit</button>
+                                                        </li>
+                                                        <li><button class="dropdown-item" type="button">Delete</button>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </td>
