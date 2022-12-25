@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
+Route::redirect('/', '/dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard.index');
 });
-Route::resource('dashboard', DashboardController::class);
+Route::resource('/jobs', JobController::class);

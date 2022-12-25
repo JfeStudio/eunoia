@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Majestic Admin</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('template') }}/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="{{ asset('template') }}/vendors/base/vendor.bundle.base.css">
@@ -202,7 +203,7 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html">
+                        <a class="nav-link" href="{{ url('/dashboard') }}">
                             <i class="mdi mdi-home menu-icon"></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
@@ -236,9 +237,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="pages/tables/basic-table.html">
+                        <a class="nav-link" href="{{ route('jobs.index') }}">
                             <i class="mdi mdi-grid-large menu-icon"></i>
-                            <span class="menu-title">Tables</span>
+                            <span class="menu-title">Jobs</span>
                         </a>
                     </li>
                     <li class="nav-item">
