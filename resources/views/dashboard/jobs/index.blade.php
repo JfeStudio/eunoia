@@ -126,8 +126,8 @@
                                                             <li><button class="dropdown-item"
                                                                     type="button">Detail</button>
                                                             </li>
-                                                            <li><button class="dropdown-item"
-                                                                    type="button">Edit</button>
+                                                            <li><a href="{{ route('jobs.edit', $job->job_id) }}"
+                                                                    class="dropdown-item" type="button">Edit</a>
                                                             </li>
                                                             <li><button class="dropdown-item"
                                                                     type="button">Delete</button>

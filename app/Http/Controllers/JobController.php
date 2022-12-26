@@ -71,7 +71,10 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $job = Job::where('job_id', $id)->first();
+        return view('dashboard.jobs.edit', [
+            'job' => $job,
+        ]);
     }
 
     /**
