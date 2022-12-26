@@ -40,7 +40,7 @@ class JobController extends Controller
             'location' => $request->location,
         ];
         Job::create($jobs);
-        return to_route('jobs.index');
+        return to_route('jobs.index')->with('success', 'A successful create data jobs!.');
     }
 
     /**

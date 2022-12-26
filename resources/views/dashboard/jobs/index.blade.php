@@ -1,6 +1,12 @@
 <x-app-layout>
     <div class="main-panel">
         <div class="content-wrapper p-3">
+            @if (Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ Session::get('success') }}
+                    <button type="button" class="btn-close fs-8" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
