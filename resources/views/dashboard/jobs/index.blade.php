@@ -83,90 +83,55 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>
-                                                JID-01
-                                            </td>
-                                            <td>
-                                                Laravel-9 Developer
-                                            </td>
-                                            <td>
-                                                July 05, 2022
-                                            </td>
-                                            <td>
-                                                May 15, 2022
-                                            </td>
-                                            <td>
-                                                Published
-                                            </td>
-                                            <td>
-                                                Leap Life Technology
-                                            </td>
-                                            <td>
-                                                Silicon Valley
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="dropdown">
-                                                    <button class="btn p-2" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        <i class='bx bx-dots-vertical-rounded'></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Detail</button>
-                                                        </li>
-                                                        <li><button class="dropdown-item" type="button">Edit</button>
-                                                        </li>
-                                                        <li><button class="dropdown-item" type="button">Delete</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>
-                                                JID-02
-                                            </td>
-                                            <td>
-                                                Laravel-8 Developer
-                                            </td>
-                                            <td>
-                                                July 05, 2022
-                                            </td>
-                                            <td>
-                                                May 15, 2022
-                                            </td>
-                                            <td>
-                                                Published
-                                            </td>
-                                            <td>
-                                                Leap Life Technology
-                                            </td>
-                                            <td>
-                                                Silicon Valley
-                                            </td>
-                                            <td class="text-center">
-                                                <div class="dropdown">
-                                                    <button class="btn p-2" type="button" data-bs-toggle="dropdown"
-                                                        aria-expanded="false">
-                                                        <i class='bx bx-dots-vertical-rounded'></i>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li><button class="dropdown-item" type="button">Detail</button>
-                                                        </li>
-                                                        <li><button class="dropdown-item" type="button">Edit</button>
-                                                        </li>
-                                                        <li><button class="dropdown-item" type="button">Delete</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                        <?php $i = $jobs->firstItem(); ?>
+                                        @foreach ($jobs as $job)
+                                            <tr>
+                                                <td>
+                                                    {{ $i }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->job_id }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->job_name }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->created_at->format('j M Y, g:i a') }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->deadline }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->status }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->employer }}
+                                                </td>
+                                                <td>
+                                                    {{ $job->location }}
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="dropdown">
+                                                        <button class="btn p-2" type="button" data-bs-toggle="dropdown"
+                                                            aria-expanded="false">
+                                                            <i class='bx bx-dots-vertical-rounded'></i>
+                                                        </button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><button class="dropdown-item"
+                                                                    type="button">Detail</button>
+                                                            </li>
+                                                            <li><button class="dropdown-item"
+                                                                    type="button">Edit</button>
+                                                            </li>
+                                                            <li><button class="dropdown-item"
+                                                                    type="button">Delete</button>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php $i++; ?>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

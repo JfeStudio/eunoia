@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('jobs', function (Blueprint $table) {
-            $table->id();
+            $table->string('job_id')->unique();
+            $table->string('job_name');
+            $table->string('deadline');
+            $table->string('status');
+            $table->string('employer');
+            $table->string('location');
             $table->timestamps();
         });
     }

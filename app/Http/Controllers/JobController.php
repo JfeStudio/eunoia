@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Job;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -13,7 +14,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        return view('dashboard.jobs.index');
+        $jobs = Job::orderBy('job_id', 'ASC')->paginate('5');
+        return view('dashboard.jobs.index', compact('jobs'));
     }
 
     public function create()
@@ -29,7 +31,16 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jobs = [
+            'job_id' => $request->job_id,
+            'job_name' => $request->job_name,
+            'deadline' => $request->deadline,
+            'status' => $request->status,
+            'employer' => $request->employer,
+            'location' => $request->location,
+        ];
+        Job::create($jobs);
+        return to_route('jobs.index');
     }
 
     /**
