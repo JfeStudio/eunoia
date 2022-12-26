@@ -14,7 +14,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::orderBy('job_id', 'ASC')->paginate('5');
+        $jobs = Job::orderBy('job_id', 'DESC')->paginate('5');
         return view('dashboard.jobs.index', compact('jobs'));
     }
 
@@ -31,6 +31,15 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
+        // kita buat validasi dlu
+        $request->validate([
+            'job_id' => 'required|string|min:3|unique:jobs,job_id',
+            'job_name' => 'required|string|min:3',
+            'deadline' => 'required|string|min:3',
+            'status' => 'required|string|min:3',
+            'employer' => 'required|string|min:3',
+            'location' => 'required|string|min:3',
+        ]);
         $jobs = [
             'job_id' => $request->job_id,
             'job_name' => $request->job_name,
