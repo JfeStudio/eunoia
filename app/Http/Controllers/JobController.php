@@ -86,7 +86,22 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'job_name' => 'required|string|min:3',
+            'deadline' => 'required|string|min:3',
+            'status' => 'required|string|min:3',
+            'employer' => 'required|string|min:3',
+            'location' => 'required|string|min:3',
+        ]);
+        $jobs = [
+            'job_name' => $request->job_name,
+            'deadline' => $request->deadline,
+            'status' => $request->status,
+            'employer' => $request->employer,
+            'location' => $request->location,
+        ];
+        Job::where('job_id', $id)->update($jobs);
+        return to_route('jobs.index')->with('success', 'A successful update data jobs!.');
     }
 
     /**
