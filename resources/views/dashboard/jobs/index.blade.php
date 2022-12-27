@@ -141,6 +141,7 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="mt-3">{{ $jobs->links() }}</div>
                         </div>
                     </div>
                 </div>
