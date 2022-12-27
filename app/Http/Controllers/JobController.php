@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\JobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
 
@@ -84,22 +85,15 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JobRequest $request, $id)
     {
-        $request->validate([
-            'job_name' => 'required|string|min:3',
-            'deadline' => 'required|string|min:3',
-            'status' => 'required|string|min:3',
-            'employer' => 'required|string|min:3',
-            'location' => 'required|string|min:3',
-        ]);
-        $jobs = [
-            'job_name' => $request->job_name,
-            'deadline' => $request->deadline,
-            'status' => $request->status,
-            'employer' => $request->employer,
-            'location' => $request->location,
-        ];
+        // pengecekan validation di lakukan di JobRequest, soalnya aku udh pindah validasinya
+        // lalu kita pake except supaya token dan method tidak ikut di dalam put edit karna kita mau dupm semuanya
+        $jobs = $request->except(['_token', '_method']);
+        // selesai pengecekan, maka datanya yg akan masuk data yang hanya di perbolehkan, kecuali yg kita except tidak akan ikut masuk
+        // intinya klw kita gunakan all(), itu requestnya dia mengngembalikan semuanya.
+        // $jobs = $request->all();
+        // dd($jobs);
         Job::where('job_id', $id)->update($jobs);
         return to_route('jobs.index')->with('success', 'A successful update data jobs!.');
     }
@@ -112,6 +106,7 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Job::where('job_id', $id)->delete();
+        return to_route('jobs.index')->with('success', 'A successful delete data jobs!.');
     }
 }

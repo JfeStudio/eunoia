@@ -129,8 +129,15 @@
                                                             <li><a href="{{ route('jobs.edit', $job->job_id) }}"
                                                                     class="dropdown-item" type="button">Edit</a>
                                                             </li>
-                                                            <li><button class="dropdown-item"
-                                                                    type="button">Delete</button>
+                                                            <li>
+                                                                <form onsubmit="return confirm('apakah anda yakin?')"
+                                                                    action="{{ route('jobs.destroy', $job->job_id) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="dropdown-item"
+                                                                        type="submit">Delete</button>
+                                                                </form>
                                                             </li>
                                                         </ul>
                                                     </div>
