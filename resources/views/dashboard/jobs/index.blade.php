@@ -39,9 +39,9 @@
                                     </div>
                                 </div>
                                 <div class='d-flex align-items-center gap-2'>
-                                    <form class="d-flex" role="search">
-                                        <input class="form-control me-2 border-custom rounded-2" type="search"
-                                            placeholder="Search" aria-label="Search">
+                                    <form {{ route('jobs.index') }} class="d-flex" role="search" method="get">
+                                        <input class="form-control me-2 border-custom rounded-2" name="search"
+                                            autofocus type="search" placeholder="Search" aria-label="Search">
                                         <button class="btn btn-outline-success py-2" type="submit">Search</button>
                                     </form>
                                     <button class="btn btn-light dropdown-toggle px-3" type="button"

@@ -14,9 +14,13 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jobs = Job::orderBy('job_id')->paginate('4');
+        if ($request->has('search')) {
+            $jobs = Job::where('job_name', 'LIKE', '%' .$request->search. '%')->orderBy('job_id')->paginate('4');
+        }else{
+            $jobs = Job::orderBy('job_id')->paginate('4');
+        }
         return view('dashboard.jobs.index', compact('jobs'));
     }
 
@@ -36,6 +40,7 @@ class JobController extends Controller
             $jobs = $request->all();
             // $request->all() untuk masukan datanya semua + token @csrf
             // lalu jika kita ingin nullable untuk field image bisa di kasih kondisi
+            // kita buat file() dan tulis nama folder di dalamnya
             if ( $file_image = $request->file('image')) {
             // maksudnya, jika tidak ada gambar maka tidk apa2, tinggal nanti di kasih kondisi juga di viewnya
             // sebenarnya kita juga bisa membuat variable untuk menyimpan format image nya (opsional)
