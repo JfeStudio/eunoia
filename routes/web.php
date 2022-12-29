@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,4 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
 Route::resource('/jobs', JobController::class);
+Route::resource('/tasks', TaskController::class);

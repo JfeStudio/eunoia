@@ -104,8 +104,7 @@ class JobController extends Controller
         $jobs = $request->except(['_token', '_method']);
         // selesai pengecekan, maka datanya yg akan masuk dengan data yang hanya di perbolehkan, kecuali yg kita except tidak akan ikut masuk
         // intinya klw kita gunakan all(), itu requestnya dia mengngembalikan semuanya.
-        // $jobs = $request->all();
-        // dd($jobs);
+        // di bagian edit kita kondisikan dlu, si images punya file image ga? klw ada nanti kita ksih logicnya
         if ($request->hasFile('image')) {
             $file_image = $request->file('image');
             // maksudnya, jika tidak ada gambar maka tidk apa2, tinggal nanti di kasih kondisi juga di viewnya
@@ -114,16 +113,13 @@ class JobController extends Controller
             $name_image = date('ymdhis') . "." . $file_image->getClientOriginalExtension(); // bisa juga getClientOriginalExtension() di ganti dengan extension()
             // lalu tahap selanjutnya kita akan pindahkan file imagenya berserta name image nya yang sudah kita custom namenya menggunakan date()
             $file_image->move(public_path('image'), $name_image);
-            // lalu kita cari data image di dalam object si jobs + name imagenya
-            // delete foto
+            // delete foto di folder pathnya juga
             $jobs = Job::where('job_id', $id)->first();
             File::delete(public_path('image') . '/' . $jobs->image);
+            // lalu kita cari data image di dalam object si jobs + name imagenya
             // $jobs['image'] = $name_image;
             $jobs = ['image' => $name_image];
             }
-            // else {
-            //     unset($jobs['image']);
-            // }
         Job::where('job_id', $id)->update($jobs);
         return to_route('jobs.index')->with('success', 'A successful update data jobs!.');
     }
