@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JobRequest;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class JobController extends Controller
 {
@@ -15,7 +16,7 @@ class JobController extends Controller
      */
     public function index()
     {
-        $jobs = Job::orderBy('job_id', 'DESC')->paginate('4');
+        $jobs = Job::orderBy('job_id')->paginate('4');
         return view('dashboard.jobs.index', compact('jobs'));
     }
 
@@ -30,25 +31,22 @@ class JobController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JobRequest $request)
     {
-        // kita buat validasi dlu
-        $request->validate([
-            'job_id' => 'required|string|min:3|unique:jobs,job_id',
-            'job_name' => 'required|string|min:3',
-            'deadline' => 'required|string|min:3',
-            'status' => 'required|string|min:3',
-            'employer' => 'required|string|min:3',
-            'location' => 'required|string|min:3',
-        ]);
-        $jobs = [
-            'job_id' => $request->job_id,
-            'job_name' => $request->job_name,
-            'deadline' => $request->deadline,
-            'status' => $request->status,
-            'employer' => $request->employer,
-            'location' => $request->location,
-        ];
+            $jobs = $request->all();
+            // $request->all() untuk masukan datanya semua + token @csrf
+            // lalu jika kita ingin nullable untuk field image bisa di kasih kondisi
+            if ( $file_image = $request->file('image')) {
+            // maksudnya, jika tidak ada gambar maka tidk apa2, tinggal nanti di kasih kondisi juga di viewnya
+            // sebenarnya kita juga bisa membuat variable untuk menyimpan format image nya (opsional)
+            // tapi untuk kasus sekarng aku langsung taruh di dalam $name_image saja.
+            $name_image = date('ymdhis') . "." . $file_image->getClientOriginalExtension(); // bisa juga getClientOriginalExtension() di ganti dengan extension()
+            // lalu tahap selanjutnya kita akan pindahkan file imagenya berserta name image nya yang sudah kita custom namenya menggunakan date()
+            $file_image->move(public_path('image'), $name_image);
+            // lalu kita cari data image di dalam object si jobs + name imagenya
+            $jobs['image'] = $name_image;
+            }
+        // dd($jobs);
         Job::create($jobs);
         return to_route('jobs.index')->with('success', 'A successful create data jobs!.');
     }
@@ -90,7 +88,7 @@ class JobController extends Controller
         // pengecekan validation di lakukan di JobRequest, soalnya aku udh pindah validasinya
         // lalu kita pake except supaya token dan method tidak ikut di dalam put edit karna kita mau dupm semuanya
         $jobs = $request->except(['_token', '_method']);
-        // selesai pengecekan, maka datanya yg akan masuk data yang hanya di perbolehkan, kecuali yg kita except tidak akan ikut masuk
+        // selesai pengecekan, maka datanya yg akan masuk dengan data yang hanya di perbolehkan, kecuali yg kita except tidak akan ikut masuk
         // intinya klw kita gunakan all(), itu requestnya dia mengngembalikan semuanya.
         // $jobs = $request->all();
         // dd($jobs);
@@ -106,6 +104,8 @@ class JobController extends Controller
      */
     public function destroy($id)
     {
+        $jobs = Job::where('job_id', $id)->first();
+        File::delete(public_path('image') . '/' . $jobs->image);
         Job::where('job_id', $id)->delete();
         return to_route('jobs.index')->with('success', 'A successful delete data jobs!.');
     }

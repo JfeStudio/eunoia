@@ -10,7 +10,8 @@
                             <h2 class="card-title fs-5 mb-0">Create Jobs</h2>
                         </div>
                         <div class="card-body p-4">
-                            <form action="{{ route('jobs.store') }}" method="post" class="row g-3">
+                            <form action="{{ route('jobs.store') }}" method="post" class="row g-3"
+                                enctype="multipart/form-data">
                                 @csrf
                                 <div class="col-md-4">
                                     <label for="jobid" class="form-label fs-7">JOB ID</label>
@@ -39,7 +40,7 @@
                                         <small class='text-danger'>{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="jobdl" class="form-label fs-7">DEADLINE</label>
                                     <input type="date" name="deadline" value="{{ old('deadline') }}"
                                         class="@error('deadline') is-invalid @enderror form-control border-custom rounded-2"
@@ -48,7 +49,7 @@
                                         <small class='text-danger'>{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputStatus" class="form-label">Status</label>
                                     <select id="inputStatus" name="status"
                                         class="@error('status') is-invalid @enderror form-select py-2">
@@ -66,7 +67,7 @@
                                         <small class='text-danger'>{{ $message }}</small>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <label for="inputLocation" class="form-label">Location</label>
                                     <select id="inputLocation" name="location"
                                         class="@error('location') is-invalid @enderror form-select py-2">
@@ -91,6 +92,16 @@
                                         <small class='text-danger'>{{ $message }}</small>
                                     @enderror
                                 </div>
+                                <div class="col-md-3">
+                                    <label for="formFileSm" class="form-label">Image</label>
+                                    <input
+                                        class="@error('image') is-invalid @enderror form-control form-control rounded-2"
+                                        id="formFileSm" type="file" name="image">
+                                    @error('image')
+                                        <small class='text-danger'>{{ $message }}</small>
+                                    @enderror
+                                </div>
+
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-primary text-light px-3 me-1">Create
                                         Job</button>

@@ -24,11 +24,13 @@ class JobRequest extends FormRequest
     public function rules()
     {
         return [
+            'job_id' => 'required|string|min:3|unique:jobs,job_id',
             'job_name' => 'required|string|min:3',
             'deadline' => 'required|string|min:3',
             'status' => 'required|string|min:3',
             'employer' => 'required|string|min:3',
             'location' => 'required|string|min:3',
+            'image' => 'mimes:jpeg,jpg,png,gif',
         ];
     }
 }

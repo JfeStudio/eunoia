@@ -84,6 +84,9 @@
                                                 Location
                                             </th>
                                             <th>
+                                                Image
+                                            </th>
+                                            <th>
                                                 Action
                                             </th>
                                         </tr>
@@ -115,6 +118,14 @@
                                                 </td>
                                                 <td>
                                                     {{ $job->location }}
+                                                </td>
+                                                <td class='text-center'>
+                                                    @if ($job->image)
+                                                        {{-- <img src="{{ url('image') . '/' . $job->image }}" --}}
+                                                        <img src="/image/{{ $job->image }}" alt="image">
+                                                    @else
+                                                        <i class='fs-1 text-secondary bx bxs-user-circle'></i>
+                                                    @endif
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="dropdown">
