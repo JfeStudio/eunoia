@@ -17,7 +17,8 @@ class JobController extends Controller
     public function index(Request $request)
     {
         if ($request->has('search')) {
-            $jobs = Job::where('job_name', 'LIKE', '%' .$request->search. '%')->orderBy('job_id')->paginate('4');
+            $jobs = Job::where('job_name', 'LIKE', '%' .$request->search. '%')->
+            orWhere('employer', 'LIKE', '%' .$request->search. '%')->orderBy('job_id')->paginate('4');
         }else{
             $jobs = Job::orderBy('job_id')->paginate('4');
         }
@@ -88,8 +89,16 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JobRequest $request, $id)
+    public function update(Request $request, $id)
     {
+        $request->validate([
+            'job_name' => 'required|string|min:3',
+            'deadline' => 'required|string|min:3',
+            'status' => 'required|string|min:3',
+            'employer' => 'required|string|min:3',
+            'location' => 'required|string|min:3',
+            'image' => 'mimes:jpeg,jpg,png,gif',
+        ]);
         // pengecekan validation di lakukan di JobRequest, soalnya aku udh pindah validasinya
         // lalu kita pake except supaya token dan method tidak ikut di dalam put edit karna kita mau dupm semuanya
         $jobs = $request->except(['_token', '_method']);
@@ -97,6 +106,24 @@ class JobController extends Controller
         // intinya klw kita gunakan all(), itu requestnya dia mengngembalikan semuanya.
         // $jobs = $request->all();
         // dd($jobs);
+        if ($request->hasFile('image')) {
+            $file_image = $request->file('image');
+            // maksudnya, jika tidak ada gambar maka tidk apa2, tinggal nanti di kasih kondisi juga di viewnya
+            // sebenarnya kita juga bisa membuat variable untuk menyimpan format image nya (opsional)
+            // tapi untuk kasus sekarng aku langsung taruh di dalam $name_image saja.
+            $name_image = date('ymdhis') . "." . $file_image->getClientOriginalExtension(); // bisa juga getClientOriginalExtension() di ganti dengan extension()
+            // lalu tahap selanjutnya kita akan pindahkan file imagenya berserta name image nya yang sudah kita custom namenya menggunakan date()
+            $file_image->move(public_path('image'), $name_image);
+            // lalu kita cari data image di dalam object si jobs + name imagenya
+            // delete foto
+            $jobs = Job::where('job_id', $id)->first();
+            File::delete(public_path('image') . '/' . $jobs->image);
+            // $jobs['image'] = $name_image;
+            $jobs = ['image' => $name_image];
+            }
+            // else {
+            //     unset($jobs['image']);
+            // }
         Job::where('job_id', $id)->update($jobs);
         return to_route('jobs.index')->with('success', 'A successful update data jobs!.');
     }

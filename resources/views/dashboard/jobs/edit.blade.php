@@ -9,7 +9,8 @@
                             </h2>
                         </div>
                         <div class="card-body p-4">
-                            <form action="{{ route('jobs.update', $job->job_id) }}" method="post" class="row g-3">
+                            <form action="{{ route('jobs.update', $job->job_id) }}" method="post" class="row g-3"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
                                 <div class="col-md-4">
@@ -85,6 +86,21 @@
                                         </option>
                                     </select>
                                     @error('location')
+                                        <small class='text-danger'>{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="col-md-4 d-flex align-items-center gap-2 mb-3">
+                                    @if ($job->image)
+                                        {{-- <label for="formFileSm" class="form-label">Image</label> --}}
+                                        <img style="width: 50px; height: 50px; border-radius: 50%"
+                                            src="/image/{{ $job->image }}" alt="image">
+                                    @else
+                                        <i class='fs-1 text-secondary bx bxs-user-circle'></i>
+                                    @endif
+                                    <input
+                                        class="@error('image') is-invalid @enderror form-control form-control rounded-2"
+                                        id="formFileSm" type="file" name="image">
+                                    @error('image')
                                         <small class='text-danger'>{{ $message }}</small>
                                     @enderror
                                 </div>
