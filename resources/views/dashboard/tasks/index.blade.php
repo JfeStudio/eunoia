@@ -10,10 +10,16 @@
                         <div class="card-body">
                             <form action="{{ route('tasks.store') }}" method="post">
                                 @csrf
-                                <div class="d-flex align-items-center gap-2">
+                                <div class="d-flex align-items-start gap-2">
                                     <div class="">
-                                        <input type="text" class="form-control form-control-sm " id="tasks"
-                                            name="list" aria-describedby="emailHelp" placeholder="Add your new todo">
+                                        <input type="text"
+                                            class="@error('list') is-invalid @enderror form-control form-control-sm "
+                                            id="tasks" name="list" aria-describedby="emailHelp"
+                                            placeholder="Add your new todo">
+                                        @error('list')
+                                            <small class='text-danger'
+                                                style="--bs-btn-font-size: .75rem;"">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <button type="submit" class="btn btn-primary btn-sm  text-white">
                                         Add todo
@@ -33,8 +39,13 @@
                                                     <button type="submit" class='btn p-0 text-warning'><i
                                                             class='mdi mdi-pencil-box-outline'></i>
                                                     </button>
-                                                    <button type="submit" class='btn p-0 text-danger'><i
-                                                            class='mdi mdi-close-circle-outline'></i></button>
+                                                    <form action="{{ route('tasks.destroy', $task->id) }}"
+                                                        method="post" onsubmit="return confirm('apakah anda yakin?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class='btn p-0 text-danger'><i
+                                                                class='mdi mdi-close-circle-outline'></i></button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </li>

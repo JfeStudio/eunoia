@@ -36,6 +36,12 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'list' => 'required|min:3|string',
+        ],[
+            'list.required' => 'itu di isi jangan kosong cok!!..',
+        ]);
+
         $tasks = [
             'list' => $request->list,
         ];
@@ -85,6 +91,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Task::find($id)->delete();
+        return back();
     }
 }
