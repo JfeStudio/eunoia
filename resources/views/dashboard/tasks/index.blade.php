@@ -15,7 +15,7 @@
                                         <input type="text"
                                             class="@error('list') is-invalid @enderror form-control form-control-sm "
                                             id="tasks" name="list" aria-describedby="emailHelp"
-                                            placeholder="Add your new todo">
+                                            placeholder="Add your new todo" autofocus>
                                         @error('list')
                                             <small class='text-danger'
                                                 style="--bs-btn-font-size: .75rem;"">{{ $message }}</small>
@@ -36,9 +36,10 @@
                                                     <button type="submit" class='btn p-0 text-success'><i
                                                             class='mdi mdi-check-circle-outline'></i>
                                                     </button>
-                                                    <button type="submit" class='btn p-0 text-warning'><i
+                                                    <a href="{{ route('tasks.edit', $task->id) }}"
+                                                        class='btn p-0 text-warning'><i
                                                             class='mdi mdi-pencil-box-outline'></i>
-                                                    </button>
+                                                    </a>
                                                     <form action="{{ route('tasks.destroy', $task->id) }}"
                                                         method="post" onsubmit="return confirm('apakah anda yakin?')">
                                                         @csrf

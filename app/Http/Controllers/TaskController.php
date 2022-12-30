@@ -57,7 +57,7 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        //
+    //
     }
 
     /**
@@ -66,9 +66,9 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        //
+        return view('dashboard.tasks.edit', compact('task'));
     }
 
     /**
@@ -80,7 +80,17 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'list' => 'required|min:3|string',
+        ],[
+            'list.required' => 'itu di isi jangan kosong cok!!..',
+            'list.min' => 'budeg lu, gaboleh 2 huruf cok!!..',
+        ]);
+        $tasks = [
+            'list' => $request->list,
+        ];
+        Task::where('id', $id)->update($tasks);
+        return to_route('tasks.index');
     }
 
     /**
