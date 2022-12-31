@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// auth
+Route::get('login', [LoginController::class, 'create'])->name('login');
+Route::get('register', [RegisterController::class, 'create'])->name('register');
+
+
 Route::redirect('/', '/dashboard');
 Route::get('/dashboard', function () {
     return view('dashboard.index');

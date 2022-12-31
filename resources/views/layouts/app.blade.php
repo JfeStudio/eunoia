@@ -187,7 +187,7 @@
                                 <i class="mdi mdi-settings text-primary"></i>
                                 Settings
                             </a>
-                            <a class="dropdown-item">
+                            <a href="{{ route('login') }}" class="dropdown-item">
                                 <i class="mdi mdi-logout text-primary"></i>
                                 Logout
                             </a>

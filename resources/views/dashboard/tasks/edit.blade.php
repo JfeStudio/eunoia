@@ -5,7 +5,7 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-header">
-                            To-do List : <b>EDIT TASK</b>
+                            To-do List : <b>Edit Task</b>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('tasks.update', $task->id) }}" method="post">

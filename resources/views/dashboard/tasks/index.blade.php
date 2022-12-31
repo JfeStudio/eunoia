@@ -5,7 +5,7 @@
                 <div class="col-lg-12 grid-margin stretch-card">
                     <div class="card">
                         <div class="card-header">
-                            To-do List
+                            To-do List : <b>Todo App</b>
                         </div>
                         <div class="card-body">
                             <form action="{{ route('tasks.store') }}" method="post">
