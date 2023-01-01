@@ -7,7 +7,11 @@
                         <div class="d-flex align-items-end flex-wrap">
                             <div class="me-md-3 me-xl-5">
                                 <h2>Welcome back,</h2>
-                                <p class="mb-md-0">Your analytics dashboard template.</p>
+                                @if (Session::has('success'))
+                                    <p class="mb-md-0 text-danger">{{ Session::get('success') }}</p>
+                                @else
+                                    <p class="mb-md-0">Lorem ipsum dolor sit amet.</p>
+                                @endif
                             </div>
                             <div class="d-flex">
                                 <i class="mdi mdi-home text-muted hover-cursor"></i>
