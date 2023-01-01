@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -34,7 +38,28 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // buat validasi untuk login sesuai form yang tersedia
+        $request->validate([
+            'email' => 'required|min:3|email',
+            'password' => 'required|min:8',
+        ]);
+        // lalu kita cek user email yang login
+        $user = User::whereEmail($request->email)->first();
+        // kita kasih kondisi, klw emailnya bener kita masuk step selanjutnya
+        if ($user) {
+            // step selanjutnya check password yang di ketikkan di form input apakah sama dengan password user di databasenya
+            if (Hash::check($request->password, $user->password)) {
+                // klw sama kita ksih akses
+                Auth::login($user);
+                // lalu mau di redirect kemana klw udah benar + session flash/with
+                return redirect('/dashboard')->with('success', 'Selamat Anda Berhasil Login');
+            }
+        }
+        // tapi jika error, kita buat throw messagenya
+        throw ValidationException::withMessages([
+            'email' => 'email anda salah',
+            'password' => 'password anda salah',
+        ]);
     }
 
     /**

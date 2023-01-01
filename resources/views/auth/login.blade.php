@@ -7,18 +7,23 @@
                 </div>
                 <h4>Welcome back!</h4>
                 <h6 class="font-weight-light">Happy to see you again!</h6>
-                <form class="pt-3">
+                <form class="pt-3" {{ route('login') }} method="post">
+                    @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail">Username</label>
+                        <label for="exampleInputEmail">Email</label>
                         <div class="input-group">
                             <div class="input-group-prepend bg-transparent">
                                 <span class="input-group-text bg-transparent border-right-0">
                                     <i class="mdi mdi-account-outline text-primary"></i>
                                 </span>
                             </div>
-                            <input type="text" class="form-control form-control-lg border-left-0"
-                                id="exampleInputEmail" placeholder="Username">
+                            <input type="email" name="email" value="{{ old('email') }}"
+                                class="form-control form-control-lg border-left-0" id="exampleInputEmail"
+                                placeholder="Email">
                         </div>
+                        @error('email')
+                            <small class='text-danger'>{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword">Password</label>
@@ -28,9 +33,12 @@
                                     <i class="mdi mdi-lock-outline text-primary"></i>
                                 </span>
                             </div>
-                            <input type="password" class="form-control form-control-lg border-left-0"
+                            <input type="password" name="password" class="form-control form-control-lg border-left-0"
                                 id="exampleInputPassword" placeholder="Password">
                         </div>
+                        @error('password')
+                            <small class='text-danger'>{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="my-2 d-flex justify-content-between align-items-center">
                         <div class="form-check">
@@ -42,8 +50,8 @@
                         <a href="#" class="auth-link text-black">Forgot password?</a>
                     </div>
                     <div class="my-3">
-                        <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
-                            href="../../index.html">LOGIN</a>
+                        <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                            href="{{ route('login') }}">LOGIN</button>
                     </div>
                     <div class="mb-2 d-flex">
                         <button type="button" class="btn btn-facebook auth-form-btn flex-grow me-1">
