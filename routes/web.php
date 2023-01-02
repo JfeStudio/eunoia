@@ -17,15 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // auth
-Route::get('login', [LoginController::class, 'create'])->name('login');
-Route::post('login', [LoginController::class, 'store'])->name('login');
-Route::get('register', [RegisterController::class, 'create'])->name('register');
-Route::post('register', [RegisterController::class, 'store'])->name('register');
+Route::middleware('guest')->group(function() {
+    Route::get('login', [LoginController::class, 'create'])->name('login');
+    Route::post('login', [LoginController::class, 'store'])->name('login');
+    Route::get('register', [RegisterController::class, 'create'])->name('register');
+    Route::post('register', [RegisterController::class, 'store'])->name('register');
+});
 
+Route::resource('/jobs', JobController::class)->middleware('auth');
 
 Route::redirect('/', '/dashboard');
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
-Route::resource('/jobs', JobController::class);
 Route::resource('/tasks', TaskController::class);
