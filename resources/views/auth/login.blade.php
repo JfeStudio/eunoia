@@ -10,7 +10,7 @@
                 <form class="pt-3" {{ route('login') }} method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail">Email</label>
+                        <label for="exampleInputEmail">Email Address</label>
                         <div class="input-group">
                             <div class="input-group-prepend bg-transparent">
                                 <span class="input-group-text bg-transparent border-right-0">
@@ -34,7 +34,8 @@
                                 </span>
                             </div>
                             <input type="password" name="password" class="form-control form-control-lg border-left-0"
-                                id="exampleInputPassword" placeholder="Password">
+                                id="exampleInputPassword" placeholder="Password"
+                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
                         </div>
                         @error('password')
                             <small class='text-danger'>{{ $message }}</small>
@@ -50,14 +51,17 @@
                         <a href="#" class="auth-link text-black">Forgot password?</a>
                     </div>
                     <div class="my-3">
-                        <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"
+                        <button type="submit"
+                            class="btn btn-block btn-primary btn-sm text-white px-4 font-weight-medium auth-form-btn"
                             href="{{ route('login') }}">LOGIN</button>
                     </div>
                     <div class="mb-2 d-flex">
-                        <button type="button" class="btn btn-facebook auth-form-btn flex-grow me-1">
+                        <button type="button"
+                            class="btn btn-facebook align-items-center border d-flex auth-form-btn flex-grow me-1">
                             <i class="mdi mdi-facebook me-2"></i>Facebook
                         </button>
-                        <button type="button" class="btn btn-google auth-form-btn flex-grow ms-1">
+                        <button type="button"
+                            class="btn btn-google d-flex align-items-center auth-form-btn flex-grow ms-1">
                             <i class="mdi mdi-google me-2"></i>Google
                         </button>
                     </div>

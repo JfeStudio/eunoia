@@ -184,7 +184,7 @@
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 id="profileDropdown">
                                 <img src="{{ asset('template') }}/images/faces/face5.jpg" alt="profile" />
-                                <span class="nav-profile-name">{{ Auth::user()->name }}</span>
+                                <span class="nav-profile-name">{{ Auth::user()->email }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown"
                                 aria-labelledby="profileDropdown">
@@ -192,10 +192,13 @@
                                     <i class="mdi mdi-settings text-primary"></i>
                                     Settings
                                 </a>
-                                <a href="{{ route('login') }}" class="dropdown-item">
-                                    <i class="mdi mdi-logout text-primary"></i>
-                                    Logout
-                                </a>
+                                <form action="{{ route('logout') }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="mdi mdi-logout text-primary"></i>
+                                        Logout
+                                    </button>
+                                </form>
                             </div>
                         </li>
                     @endguest

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::resource('/jobs', JobController::class)->middleware('auth');
-
+Route::post('logout', LogoutController::class, 'logout')->name('logout');
 Route::redirect('/', '/dashboard');
 Route::get('/dashboard', function () {
     return view('dashboard.index');

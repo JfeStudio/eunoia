@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -35,12 +36,12 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $users = $request->all();
+        $user = $request->all();
         // penggunakan hash di bawah ini bisa di hapus juga, lalu kita pake set yang ada di modal, (bisa langsung lihat di modelnya)
-        $users['password'] = Hash::make($request->password);
-        User::create($users);
+        $user['password'] = Hash::make($request->password);
+        User::create($user);
         // klw kondisi semua terpenuhi, kita mau redirect kemana, dan jgn lupa kasih session flash juga / flash message
         // kita ganti dengan sebelumnya penggunaan flash() dengan with()
         return redirect('/dashboard')->with('success', 'selamat anda sudah mendaftar');

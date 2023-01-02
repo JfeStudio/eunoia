@@ -6,7 +6,11 @@
                     <div class="d-flex justify-content-between flex-wrap">
                         <div class="d-flex align-items-end flex-wrap">
                             <div class="me-md-3 me-xl-5">
-                                <h2>Welcome back,</h2>
+                                @guest
+                                    <h2>Welcome back,</h2>
+                                @else
+                                    <h2>Welcome back, {{ Auth::user()->name }}</h2>
+                                @endguest
                                 @if (Session::has('success'))
                                     <p class="mb-md-0 text-danger">{{ Session::get('success') }}</p>
                                 @else
