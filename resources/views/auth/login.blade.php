@@ -34,8 +34,7 @@
                                 </span>
                             </div>
                             <input type="password" name="password" class="form-control form-control-lg border-left-0"
-                                id="exampleInputPassword" placeholder="Password"
-                                style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                                id="exampleInputPassword" placeholder="Password">
                         </div>
                         @error('password')
                             <small class='text-danger'>{{ $message }}</small>

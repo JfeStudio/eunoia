@@ -33,9 +33,15 @@
                                             <div class='d-flex align-items-center justify-content-between'>
                                                 <p class='m-0'>{{ $task->list }}</p>
                                                 <div class='d-flex align-items-center gap-2'>
-                                                    <button type="submit" class='btn p-0 text-success'><i
-                                                            class='mdi mdi-check-circle-outline'></i>
-                                                    </button>
+                                                    @if ($task->mark === 0)
+                                                        <button type="submit" class='btn p-0 text-danger'><i
+                                                                class='mdi mdi-exclamation'></i>
+                                                        </button>
+                                                    @else
+                                                        <button type="submit" class='btn p-0 text-success'><i
+                                                                class='mdi mdi-check-circle-outline'></i>
+                                                        </button>
+                                                    @endif
                                                     <a href="{{ route('tasks.edit', $task->id) }}"
                                                         class='btn p-0 text-warning'><i
                                                             class='mdi mdi-pencil-box-outline'></i>

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-    protected $fillable = ['list'];
+    protected $fillable = ['list', 'mark'];
     // public function getRouteKeyName()
     // {
 
