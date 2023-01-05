@@ -77,22 +77,22 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @for ($i = 1; $i <= 5; $i++)
+                                        @foreach ($books as $book)
                                             <tr>
                                                 <td>
-                                                    {{ $i }}
+                                                    {{ $loop->iteration }}
+                                                </td>
+                                                <td style="text-transform: capitalize">
+                                                    {{ $book->book }}
                                                 </td>
                                                 <td>
-                                                    {{ fake()->sentence() }}
+                                                    {{ $book->author }}
                                                 </td>
                                                 <td>
-                                                    {{ fake()->userName() }}
+                                                    {{ $book->terbit }}
                                                 </td>
                                                 <td>
-                                                    {{ fake()->date('j M Y') }}
-                                                </td>
-                                                <td>
-                                                    {{ fake()->randomNumber(5, true) }}
+                                                    {{ $book->harga }}
                                                 </td>
                                                 <td class='text-center'>
                                                     <img src="{{ fake()->imageUrl(360, 360, 'animals', true, 'dogs', true) }}"
@@ -120,7 +120,7 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        @endfor
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

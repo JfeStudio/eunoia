@@ -14,7 +14,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return view('dashboard.books.index');
+        $books = Book::orderBy('id', 'DESC')->get();
+        return view('dashboard.books.index', compact('books'));
     }
 
     /**
@@ -24,7 +25,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.books.create');
     }
 
     /**
@@ -35,7 +36,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $books = [
+            'book' => $request->book,
+            'terbit' => $request->terbit,
+            'author' => $request->author,
+            'harga' => $request->harga,
+            // 'image' => $request->image,
+        ];
+        // dd($books);
+        // exit;
+        $books = Book::create($books);
+        return to_route('books.index');
     }
 
     /**
