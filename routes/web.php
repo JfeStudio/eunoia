@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
@@ -24,6 +25,8 @@ Route::middleware('guest')->group(function() {
     Route::get('register', [RegisterController::class, 'create'])->name('register');
     Route::post('register', [RegisterController::class, 'store'])->name('register');
 });
+
+Route::resource('/books', BookController::class);
 
 Route::resource('/jobs', JobController::class)->middleware('auth');
 Route::post('logout', LogoutController::class, 'logout')->name('logout');
