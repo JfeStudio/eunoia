@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 
 class BookController extends Controller
 {
@@ -41,7 +42,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $books = $request->validate([
+        $request->validate([
             'book' => 'required|min:3|unique:books|string',
             'author' => 'required|min:3|string',
             'terbit' => 'required|min:3|string',
@@ -86,7 +87,8 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        // dd($book);
+        return view('dashboard.books.edit', compact('book'));
     }
 
     /**
@@ -98,7 +100,35 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $request->validate([
+            // 'book' => 'required|min:3|unique:books|string',
+            'author' => 'required|min:3|string',
+            'terbit' => 'required|min:3|string',
+            'harga' => 'required|min:3|string',
+            'image' => 'mimes:jpeg,png,jpg,gif',
+        ],[
+            'book.unique' => 'udah ada judul buku ini kocak',
+        ]);
+        $books = $request->all();
+        // set update image
+        // buat kodisi apakah kita udah punya file
+        if ($request->hasFile('image')) {
+        $file_image = $request->file('image');
+        // lalu buat format image, bisa juga di gabung lansung jika tidak ingin nambah variable
+        $format_image = $file_image->getClientOriginalExtension();
+        // lalu buat varible name image untuk memberikan random name + di gabung dengan format image
+        $name_image = date('ymdhis') . "." . $format_image;
+        // setelah jadi file imagenya kita pindahkan ke folder image di dalam root public
+        $file_image->move(public_path('image'), $name_image);
+        // lalu kita single target menggunakan first() untuk mengambil datanya
+        $books = Book::where('id', $book->id)->first();
+        // setelah data di dapat, kita hapus data itu dan di isi data baru
+        File::delete(public_path('image') . '/' . $books->image);
+        // lalu kita ambil value image dalam variable books untuk dijadikan name image
+        $books = ['image' => $name_image];
+        }
+        Book::where('id', $book->id)->update($books);
+        return to_route('books.index');
     }
 
     /**
@@ -109,6 +139,16 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        // ambil single data dari book image
+        $books = Book::where('id', $book->id)->first();
+        // taruh path di dalam variable (opsional)
+        $path = public_path('image') . '/' . $books->image;
+        // lalu path tadi taruh di dalam File delete,
+        // biar file yang ada di folder image, juga terhapus
+        File::delete($path);
+        // kita juga hapus data selain data yang ada di folder image,
+        // karna logic yang atas hanya menghapus image dalam folder
+        Book::where('id', $book->id)->delete();
+        return back();
     }
 }

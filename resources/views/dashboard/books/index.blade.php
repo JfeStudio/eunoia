@@ -112,12 +112,17 @@
                                                             <li><button class="dropdown-item"
                                                                     type="button">Detail</button>
                                                             </li>
-                                                            <li><a href="#" class="dropdown-item"
-                                                                    type="button">Edit</a>
+                                                            <li><a href="{{ route('books.edit', $book) }}"
+                                                                    class="dropdown-item" type="button">Edit</a>
                                                             </li>
                                                             <li>
-                                                                <button class="dropdown-item"
-                                                                    type="submit">Delete</button>
+                                                                <form action="{{ route('books.destroy', $book) }}"
+                                                                    method="post">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button class="dropdown-item"
+                                                                        type="submit">Delete</button>
+                                                                </form>
                                                             </li>
                                                         </ul>
                                                     </div>
