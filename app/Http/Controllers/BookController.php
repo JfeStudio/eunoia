@@ -12,9 +12,14 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $books = Book::orderBy('id', 'DESC')->get();
+        if ($request->has('search')) {
+            $books = Book::where('book', 'LIKE', '%' .$request->search. '%')
+            ->orWhere('author', 'LIKE', '%' .$request->search. '%')->orderBy('id', 'DESC')->get();
+        }else {
+            $books = Book::orderBy('id', 'DESC')->get();
+        }
         return view('dashboard.books.index', compact('books'));
     }
 
