@@ -36,16 +36,29 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        $books = [
-            'book' => $request->book,
-            'terbit' => $request->terbit,
-            'author' => $request->author,
-            'harga' => $request->harga,
-            // 'image' => $request->image,
-        ];
-        // dd($books);
-        // exit;
-        $books = Book::create($books);
+        $books = $request->validate([
+            'book' => 'required|min:3|unique:books|string',
+            'author' => 'required|min:3|string',
+            'terbit' => 'required|min:3|string',
+            'harga' => 'required|min:3|string',
+            'image' => 'mimes:jpeg,png,jpg,gif',
+        ],[
+            'book.unique' => 'udah ada judul buku ini kocak',
+        ]);
+        $books = $request->all();
+        // set upload image
+        // buat file/folder root untuk image
+        if ($file_image = $request->file('image')) {
+        // lalu buat format image, bisa juga di gabung lansung jika tidak ingin nambah variable
+        $format_image = $file_image->getClientOriginalExtension();
+        // lalu buat varible name image untuk memberikan random name + di gabung dengan format image
+        $name_image = date('ymdhis') . "." . $format_image;
+        // setelah jadi file imagenya kita pindahkan ke folder image di dalam root public
+        $file_image->move(public_path('image'), $name_image);
+        // lalu kita ambil value image dalam variable books untuk dijadikan name image
+        $books['image'] = $name_image;
+        }
+        Book::create($books);
         return to_route('books.index');
     }
 

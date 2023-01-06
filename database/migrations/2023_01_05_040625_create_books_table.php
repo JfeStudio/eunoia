@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('terbit');
             $table->string('author');
             $table->string('harga');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

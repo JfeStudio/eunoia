@@ -95,9 +95,12 @@
                                                     {{ $book->harga }}
                                                 </td>
                                                 <td class='text-center'>
-                                                    <img src="{{ fake()->imageUrl(360, 360, 'animals', true, 'dogs', true) }}"
-                                                        alt="">
-                                                    {{-- <i class='fs-1 text-secondary bx bxs-user-circle'></i> --}}
+                                                    @if ($book->image)
+                                                        <img src="/image/{{ $book->image }}" alt="image">
+                                                    @else
+                                                        <img src="{{ fake()->imageUrl(360, 360, 'animals', true, 'dogs', true) }}"
+                                                            alt="">
+                                                    @endif
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="dropdown">

@@ -55,7 +55,7 @@
                                     <input type="text" name="harga" value="{{ old('terbit') }}"
                                         class="@error('terbit') is-invalid @enderror form-control border-custom rounded-2"
                                         id="harga" placeholder="Targa Buku">
-                                    @error('terbit')
+                                    @error('harga')
                                         <small class='text-danger'>{{ $message }}</small>
                                     @enderror
                                 </div>
