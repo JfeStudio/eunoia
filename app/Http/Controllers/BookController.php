@@ -74,9 +74,9 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Book $book)
+public function show(Book $book)
     {
-        //
+        return view('dashboard.books.show', compact('book'));
     }
 
     /**
@@ -101,7 +101,7 @@ class BookController extends Controller
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            // 'book' => 'required|min:3|unique:books|string',
+            'book' => 'required|min:3|string',
             'author' => 'required|min:3|string',
             'terbit' => 'required|min:3|string',
             'harga' => 'required|min:3|string',
@@ -109,7 +109,7 @@ class BookController extends Controller
         ],[
             'book.unique' => 'udah ada judul buku ini kocak',
         ]);
-        $books = $request->all();
+        $books = $request->except(['_token', '_method']);
         // set update image
         // buat kodisi apakah kita udah punya file
         if ($request->hasFile('image')) {

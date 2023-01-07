@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary text-light px-3 me-1">Create
+                                    <button type="submit" class="btn btn-primary text-light px-3 me-1">Edit
                                         Book</button>
                                     <a href="{{ route('books.index') }}"
                                         class="btn btn-light text-dark px-3">Cencel</a>

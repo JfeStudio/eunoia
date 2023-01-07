@@ -109,15 +109,16 @@
                                                             <i class='bx bx-dots-vertical-rounded'></i>
                                                         </button>
                                                         <ul class="dropdown-menu">
-                                                            <li><button class="dropdown-item"
-                                                                    type="button">Detail</button>
+                                                            <li><a href="{{ route('books.show', $book) }}"
+                                                                    class="dropdown-item">Detail</a>
                                                             </li>
                                                             <li><a href="{{ route('books.edit', $book) }}"
                                                                     class="dropdown-item" type="button">Edit</a>
                                                             </li>
                                                             <li>
                                                                 <form action="{{ route('books.destroy', $book) }}"
-                                                                    method="post">
+                                                                    method="post"
+                                                                    onsubmit="return confirm('Apakah Anda Yakin?')">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button class="dropdown-item"
