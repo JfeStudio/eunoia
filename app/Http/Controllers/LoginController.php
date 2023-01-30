@@ -56,7 +56,11 @@ class LoginController extends Controller
             return redirect('/dashboard')->with('success', 'Selamat Anda Berhasil Login');
         }
         // tapi jika error, kita buat throw messagenya
-        throw ValidationException::withMessages([
+        // throw ValidationException::withMessages([
+        //     'email' => 'email anda salah',
+        //     'password' => 'password anda salah',
+        // ]);
+        return back()->withErrors([
             'email' => 'email anda salah',
             'password' => 'password anda salah',
         ]);

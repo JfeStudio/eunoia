@@ -34,4 +34,6 @@ Route::redirect('/', '/dashboard');
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
+// Route::get('/tasks/{task}/edit', [TaskController::class, 'edited'])->name('tasks.edited');
 Route::resource('/tasks', TaskController::class);
+// Route::fallback()

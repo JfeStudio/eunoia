@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
@@ -101,7 +102,11 @@ public function show(Book $book)
     public function update(Request $request, Book $book)
     {
         $request->validate([
-            'book' => 'required|min:3|string',
+            // 'book' => 'required|min:3|string|unique:book,$id',
+            'book' => [
+                'required',
+                Rule::unique('books', 'book')->ignore($book->id),
+            ],
             'author' => 'required|min:3|string',
             'terbit' => 'required|min:3|string',
             'harga' => 'required|min:3|string',
